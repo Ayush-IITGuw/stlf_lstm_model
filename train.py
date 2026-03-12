@@ -77,7 +77,7 @@ def main():
 	y_pred = y_scaler.inverse_transform(y_pred_scaled.reshape((-1,1)).reshape(-1,HORIZON))
 	y_true = y_scaler.inverse_transform(y_te_w.reshape(-1,1)).reshape(-1, HORIZON)
 
-	report = regression_report(y_true, y_pred)
+	report = model_report(y_true, y_pred)
 	print(report)
 
 #8 Preserve Model
