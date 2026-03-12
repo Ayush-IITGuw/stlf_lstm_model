@@ -3,13 +3,14 @@ import joblib
 import numpy as np
 import pandas as pd
 
+import tensorflow as tf
 from config import CONFIG
 from preprocess.timestamp import TimestampBuilder
 from preprocess.features import FeatureMaker
 from preprocess.scalers import scale_data
 from preprocess.window import make_windows
 from model.lstm import build_lstm
-from model.metrics import regression_report
+from model.metrics import model_report
 
 from sklearn.pipeline import Pipeline
 
@@ -38,8 +39,8 @@ def main():
 	ycol = cfg["target_col"]
 
 #4 Scale Data
-	X_scaler = make_scaler(cfg["x_scaler"]).fit(train[feature_cols])
-	y_scaler = make_scaler(cfg["y_scaler"]).fit(train[[ycol]])
+	X_scaler = scale_data(cfg["x_scaler"]).fit(train[feature_cols])
+	y_scaler = scale_data(cfg["y_scaler"]).fit(train[[ycol]])
 
 	X_train = X_scaler.transform(train[feature_cols]).astype("float32")
 	y_train = y_scaler.transform(train[[ycol]]).astype("float32").ravel()
