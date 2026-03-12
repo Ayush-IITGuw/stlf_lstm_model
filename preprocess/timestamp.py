@@ -4,11 +4,11 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 class TimestampBuilder(BaseEstimator, TransformerMixin):
  def __init__(self,tz_local="America/New_York",date_col="Date",hour_col="Hr_End",target_col="RT_Demand",drop_cols=None):
-	self.tz_local = tz_local
-	self.date_col = date_col
-	self.hour_col = hour_col
-	self.target_col = target_col
-	self.drop_cols = drop_cols or []
+    self.tz_local = tz_local
+    self.date_col = date_col
+    self.hour_col = hour_col
+    self.target_col = target_col
+    self.drop_cols = drop_cols or []
 
  def fit(self, X,y=None):
     return self
