@@ -38,20 +38,20 @@ def main():
 	ycol = cfg["target_col"]
 
 #4 Scale Data
-    X_scaler = make_scaler(cfg["x_scaler"]).fit(train[feature_cols])
-    y_scaler = make_scaler(cfg["y_scaler"]).fit(train[[ycol]])
+	X_scaler = make_scaler(cfg["x_scaler"]).fit(train[feature_cols])
+        y_scaler = make_scaler(cfg["y_scaler"]).fit(train[[ycol]])
 
-    X_train = X_scaler.transform(train[feature_cols]).astype("float32")
-    y_train = y_scaler.transform(train[[ycol]]).astype("float32").ravel()
-    X_test  = X_scaler.transform(test[feature_cols]).astype("float32")
-    y_test  = y_scaler.transform(test[[ycol]]).astype("float32").ravel()
+        X_train = X_scaler.transform(train[feature_cols]).astype("float32")
+        y_train = y_scaler.transform(train[[ycol]]).astype("float32").ravel()
+        X_test  = X_scaler.transform(test[feature_cols]).astype("float32")
+        y_test  = y_scaler.transform(test[[ycol]]).astype("float32").ravel()
 
 #5 Make Windows
-    HISTORY, HORIZON = cfg["history"], cfg["horizon"]
-    X_tr_w, y_tr_w = make_windows(X_train, y_train, HISTORY, HORIZON)
-    X_te_w, y_te_w = make_windows(X_test,  y_test,  HISTORY, HORIZON)
+        HISTORY, HORIZON = cfg["history"], cfg["horizon"]
+        X_tr_w, y_tr_w = make_windows(X_train, y_train, HISTORY, HORIZON)
+        X_te_w, y_te_w = make_windows(X_test,  y_test,  HISTORY, HORIZON)
 
-    n_features = X_tr_w.shape[-1]
+        n_features = X_tr_w.shape[-1]
 
 #6 Train Model
 	model = build_lstm(HISTORY, n_features, HORIZON)
@@ -80,10 +80,10 @@ def main():
 	print(report)
 
 #8 Preserve Model
-    joblib.dump(pre_pipe, cfg["pipeline_path"])
-    joblib.dump(X_scaler, cfg["x_scaler_path"])
-    joblib.dump(y_scaler, cfg["y_scaler_path"])
-    model.save(cfg["model_path"])
+       joblib.dump(pre_pipe, cfg["pipeline_path"])
+       joblib.dump(X_scaler, cfg["x_scaler_path"])
+       joblib.dump(y_scaler, cfg["y_scaler_path"])
+       model.save(cfg["model_path"])
 
 if __name__ == "__main__":
 	main()

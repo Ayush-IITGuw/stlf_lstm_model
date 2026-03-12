@@ -12,7 +12,7 @@ class FeatureMaker(BaseEstimator, TransformerMixin):
  def fit(self, X, y=None):
         return self
 
- def transform(self, X)
+ def transform(self, X):
     df = df.copy()
     df["dayofweek"] = df.index.dayofweek
     df["dow_sin"] = np.sin(2 * np.pi * df["dayofweek"] / 7)
