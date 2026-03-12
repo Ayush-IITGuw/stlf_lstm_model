@@ -4,7 +4,7 @@ import numpy as np
 def model_report(y_true, y_pred):
 	
     mae = mean_absolute_error(y_true.ravel(), y_pred.ravel())
-    rmse = mean_squared_error(y_true.ravel(), y_pred.ravel(), squared=False) 
+    rmse = mean_squared_error(y_true.ravel(), y_pred.ravel())**(0.5)
     r2 = r2_score(y_true.ravel(), y_pred.ravel())
     return {"mae": mae, "rmse": rmse, "r2": r2}
 
