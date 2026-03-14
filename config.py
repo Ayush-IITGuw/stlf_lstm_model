@@ -13,17 +13,17 @@ CONFIG = {
     "target_col": "RT_Demand",
     "feature_cols": [
         "DA_Demand", "demand_lag_1", "demand_lag_3", "demand_lag_24",
-        "Dry_Bulb", "Dew_Point", "rolling_mean", "dow_sin"
+        "Dry_Bulb", "Dew_Point", "rolling_mean", "dow_sin", "demand_lag_168"
     ],
     "drop_cols": ["DA_LMP","DA_EC","DA_CC","DA_MLC","RT_LMP",
                   "RT_EC","RT_CC","RT_MLC","Date","Hr_End", "dayofweek"],
 
     # Sequence settings
-    "history": 48,
+    "history": 168,
     "horizon": 24,
 
     # Training
-    "batch_size": 32,
+    "batch_size": 64,
     "epochs": 40,
     "patience": 6,
     "validation_split": 0.1,

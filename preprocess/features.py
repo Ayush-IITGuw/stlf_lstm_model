@@ -18,6 +18,7 @@ class FeatureMaker(BaseEstimator, TransformerMixin):
     df["dayofweek"] = df.index.dayofweek
     df["dow_sin"] = np.sin(2 * np.pi * df["dayofweek"] / 7)
     df["demand_lag_1"] = df[self.target].shift(1)
+    df["demand_lag_168"]  = df[self.target].shift(168)
     df["demand_lag_3"] = df[self.target].shift(3)
     df["demand_lag_24"] = df[self.target].shift(24)
     df["rolling_mean"] = df[self.target].rolling(window=48, min_periods=1).mean()

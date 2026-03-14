@@ -7,9 +7,9 @@ def build_lstm(history, n_features, horizon):
     model = Sequential([
         LSTM(128, input_shape=(history, n_features)),
         Dropout(0.2),
-        Dense(64, activation='relu'),
+        Dense(32, activation='relu'),
         Dense(horizon)
     ])
-    model.compile(optimizer='adam', loss='mse', metrics=['mae'])
+    model.compile(optimizer='adam', loss='mae', metrics=['mae'])
     return model
 

@@ -51,4 +51,4 @@ def forecast(excel_path=None):
 if __name__ == "__main__":
     path = sys.argv[1] if len(sys.argv) > 1 else None
     fc = forecast(path)
-    print(fc.tail(10))
+    print(fc.tail(30))
