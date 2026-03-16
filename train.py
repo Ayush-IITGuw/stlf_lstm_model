@@ -2,7 +2,7 @@ import os
 import joblib
 import numpy as np
 import pandas as pd
-
+import shap 
 import tensorflow as tf
 from config import CONFIG
 from preprocess.timestamp import TimestampBuilder
@@ -80,7 +80,12 @@ def main():
 	report = model_report(y_true, y_pred)
 	print(report)
 
-#8 Preserve Model
+#8 SHAP Explainability
+	background = X_tr_w[np.random.choice(X_tr_w.shape[0], 100, replace=False)]
+	explainer = shap.DeepExplainer(model, background)
+	shap_values = explainer.shap_values(X_te_w[:50])  
+
+#9 Preserve Model
 	joblib.dump(pre_pipe, cfg["pipeline_path"])
 	joblib.dump(X_scaler, cfg["x_scaler_path"])
 	joblib.dump(y_scaler, cfg["y_scaler_path"])
