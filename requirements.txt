@@ -1,0 +1,6 @@
+NumPy
+pandas 
+scikit-learn
+TensorFlow 
+SHAP
+openpyxl

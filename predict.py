@@ -5,7 +5,6 @@ import pandas as pd
 import tensorflow as tf
 
 from config import CONFIG
-from preprocess.window import make_windows
 
 
 def forecast(excel_path=None):
@@ -26,16 +25,18 @@ def forecast(excel_path=None):
     df_prep = pre_pipe.transform(df_raw)
 
     feature_cols = cfg["feature_cols"]
-    ycol = cfg["target_col"]
 
     X_all = X_scaler.transform(df_prep[feature_cols]).astype("float32")
-    y_all = y_scaler.transform(df_prep[[ycol]]).astype("float32").ravel()
 
     H, HZ = cfg["history"], cfg["horizon"]
-    X_w, y_w = make_windows(X_all, y_all, H, HZ)
+    if len(X_all) < H:
+        raise ValueError(
+            f"At least {H} preprocessed observations are required; "
+            f"received {len(X_all)}."
+        )
 
-    # Use the LAST window to predict the NEXT horizon
-    X_last = X_w[-1:].copy()
+    # Use all observations through the latest timestamp as forecast history.
+    X_last = X_all[-H:][np.newaxis, ...]
     pred_scaled = model.predict(X_last, verbose=0)[0] 
     pred = y_scaler.inverse_transform(pred_scaled.reshape(-1,1)).ravel()
 

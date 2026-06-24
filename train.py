@@ -74,7 +74,7 @@ def main():
 
 #7 Evaluate
 	y_pred_scaled = model.predict(X_te_w)
-	y_pred = y_scaler.inverse_transform(y_pred_scaled.reshape((-1,1)).reshape(-1,HORIZON))
+	y_pred = y_scaler.inverse_transform(y_pred_scaled.reshape((-1,1))).reshape(-1,HORIZON)
 	y_true = y_scaler.inverse_transform(y_te_w.reshape(-1,1)).reshape(-1, HORIZON)
 
 	report = model_report(y_true, y_pred)
