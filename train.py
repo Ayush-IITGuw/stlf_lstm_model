@@ -1,4 +1,5 @@
 import os
+import warnings
 import joblib
 import numpy as np
 import pandas as pd
@@ -80,16 +81,22 @@ def main():
 	report = model_report(y_true, y_pred)
 	print(report)
 
-#8 SHAP Explainability
-	background = X_tr_w[np.random.choice(X_tr_w.shape[0], 100, replace=False)]
-	explainer = shap.DeepExplainer(model, background)
-	shap_values = explainer.shap_values(X_te_w[:50])  
-
-#9 Preserve Model
+	#8 Preserve trained artifacts before optional explainability work
 	joblib.dump(pre_pipe, cfg["pipeline_path"])
 	joblib.dump(X_scaler, cfg["x_scaler_path"])
 	joblib.dump(y_scaler, cfg["y_scaler_path"])
 	model.save(cfg["model_path"])
+
+	#9 SHAP Explainability
+	background = X_tr_w[np.random.choice(X_tr_w.shape[0], 100, replace=False)]
+	try:
+		explainer = shap.GradientExplainer(model, background)
+		shap_values = explainer.shap_values(X_te_w[:50])
+	except Exception as exc:
+		warnings.warn(
+			f"SHAP analysis was skipped because it failed: {exc}",
+			RuntimeWarning,
+		)
 
 if __name__ == "__main__":
 	main()

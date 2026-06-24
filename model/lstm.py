@@ -1,11 +1,12 @@
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense, Dropout
+from tensorflow.keras.layers import Input, LSTM, Dense, Dropout
 
 
 def build_lstm(history, n_features, horizon):
     model = Sequential([
-        LSTM(128, input_shape=(history, n_features)),
+        Input(shape=(history, n_features)),
+        LSTM(128),
         Dropout(0.2),
         Dense(32, activation='relu'),
         Dense(horizon)
