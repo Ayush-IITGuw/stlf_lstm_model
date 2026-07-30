@@ -1,6 +1,6 @@
 NumPy
 pandas 
 scikit-learn
-TensorFlow 
+torch
 SHAP
 openpyxl
