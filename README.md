@@ -1,4 +1,4 @@
-# Short-Term Load Forecasting with Attention-Based LSTM: ISO-NE Maine Demand Forecasting
+# Short-Term Load Forecasting with Attention-Based LSTM: ISO-NE Demand Forecasting
 
 A quantitative forecasting project that predicts near-term electricity demand using an
 encoder-decoder LSTM with Bahdanau attention over hourly ISO New England load, market, and
@@ -8,8 +8,8 @@ weather data.
 
 Short-term load forecasting is the task of estimating electricity demand over the next few hours
 or days from recent demand behavior, weather conditions, and calendar patterns. This project
-implements an end-to-end forecasting pipeline for **Maine (`ME`) real-time demand (`RT_Demand`)**
-using hourly records from `data/load_data.xlsx`:
+implements an end-to-end forecasting pipeline for real-time demand
+using records from `data/load_data.xlsx`:
 
 1. **Timestamp normalization** - converts hour-ending ISO-NE records into a UTC timestamp index,
    including `24:00` rollover handling and repeated daylight-saving hours.
@@ -110,7 +110,7 @@ History window: 168 hours
 Forecast horizon: 24 hours
 Batch size: 64
 Hidden size: 32
-Epochs: 40
+Epochs: 30
 Learning rate: 0.003
 Dropout: 0.3
 ```
@@ -149,6 +149,10 @@ The training script also plots the first 200 actual vs predicted test-horizon va
 | Mean Absolute Error | 69.65 |
 | Root Mean Squared Error | 97.70 |
 | R2 Score | 0.8157 |
+
+<img width="1917" height="617" alt="image" src="https://github.com/user-attachments/assets/1d642476-d89d-45c4-8a27-94b77d617770" />
+
+
 
 The R2 value indicates that the model explains about 80% of the variance in the evaluated
 real-time demand targets. MAE and RMSE are reported in the original `RT_Demand` scale after
